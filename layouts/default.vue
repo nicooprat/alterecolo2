@@ -2,9 +2,11 @@
   <div id="app">
     <Score/>
     <Head/>
-    <Intro/>
+    <Intro v-show="$store.state.route.name === 'category'"/>
     <nuxt/>
+    <no-ssr>
     <Foot/>
+    </no-ssr>
   </div>
 </template>
 
@@ -40,6 +42,10 @@
     font-size: 16px;
     color: $text;
     background-color: $background;
+  }
+
+  body {
+    border-top: 2px solid $green;
   }
 
   #app {

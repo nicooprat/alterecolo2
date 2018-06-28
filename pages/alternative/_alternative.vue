@@ -16,50 +16,38 @@
 </template>
 
 <script>
+  import config from '~/nuxt.config'
   import Item from '~/components/Item'
-  import VueDisqus from 'vue-disqus/VueDisqus.vue'
 
   export default {
-    name: 'Details',
     components: {
       Item,
-      VueDisqus
     },
-    props: ['item'],
-    computed: {},
+    computed: {
+      item() {
+        return this.$store.state.items.filter(i => i.slug === this.$route.params.alternative)[0]
+      }
+    },
     mounted() {
       // Update Disqus comments counts
       /* global DISQUSWIDGETS */
-      if (typeof DISQUSWIDGETS !== 'undefined') DISQUSWIDGETS.getCount({reset: true})
+      // if (typeof DISQUSWIDGETS !== 'undefined') DISQUSWIDGETS.getCount({reset: true})
     },
-    methods: {},
-    head: {
-      title() {
-        return {
-          inner: this.$props.item.Alternative
-        }
-      },
-      meta() {
-        return [{
-          property: 'og:title',
-          content: this.$props.item.Alternative
-        }, {
-          property: 'og:image',
-          content: this.$props.item.cover.thumbnails.large.url
-        }, {
-          name: 'twitter:title',
-          content: this.$props.item.Alternative
-        }, {
-          name: 'twitter:image',
-          content: this.$props.item.cover.thumbnails.large.url
-        }]
-      },
-    }
+    head() {
+      const title = this.item.Alternative + ' ・ ' + config.head.title
+      return {
+        title,
+        meta: [
+          { hid: 'og:title', property: 'og:title', content: title },
+          { hid: 'twitter:title', name: 'twitter:title', content: title },
+        ],
+      }
+    },
   }
 </script>
 
 <style scoped lang="scss">
-  @import '../assets/vars';
+  @import '../../assets/vars';
 
   article {
 

@@ -14,9 +14,7 @@
 </template>
 
 <script>
-  export default {
-    name: 'Foot',
-  }
+  export default {}
 </script>
 
 <style scoped lang="scss">

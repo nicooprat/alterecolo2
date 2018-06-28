@@ -9,7 +9,6 @@
   import { mapState } from 'vuex'
 
   export default {
-    name: 'Score',
     data() {
       return {
         newScore: this.$store.state.score

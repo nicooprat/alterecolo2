@@ -1,6 +1,6 @@
 <template>
   <main>
-    <form class="filters">
+    <form class="filters" @submit.prevent>
       <nav class="categories">
         <nuxt-link class="category" v-for="category in categories" :key="category.slug" :to="{path: category.slug}">
           <strong class="name">{{category.name}}</strong>
@@ -12,12 +12,14 @@
         </nuxt-link>
       </nav>
 
-      <vue-fuse
-        placeholder="Rechercher..."
-        tabindex="1"
-        class="search"
-        :search="$store.state.route.query.search"
-        v-bind="searchOptions"/>
+      <no-ssr>
+        <vue-fuse
+          placeholder="Rechercher..."
+          tabindex="1"
+          class="search"
+          :search="$store.state.route.query.search"
+          v-bind="searchOptions"/>
+      </no-ssr>
 
       <nav class="sorts">
         <label class="sort">
@@ -80,7 +82,7 @@
     computed: {
       filteredItems() {
         // Clone items
-        let items = this.items.slice(0)
+        let items = this.items.length && this.items.slice(0)
         // Filter if search
         if (this.$store.state.route.query.search) {
           items = this.searchedItems.map(item => {
@@ -154,22 +156,6 @@
         return this.$router.currentRoute.name === 'Category' && this.$props.categories.filter(c => c.slug === this.$router.currentRoute.params.category)[0]
       }
     },
-    head: {
-      title() {
-        return (this.currentCategory() && {
-          inner: this.currentCategory().name
-        }) || false
-      },
-      meta() {
-        return (this.currentCategory() && [{
-          property: 'og:title',
-          content: this.currentCategory().name
-        }, {
-          name: 'twitter:title',
-          content: this.currentCategory().name
-        }]) || false
-      },
-    }
   }
 </script>
 
@@ -293,6 +279,7 @@
   .sorts {
     display: flex;
     align-items: center;
+    margin-left: auto;
   }
 
   .sort {
