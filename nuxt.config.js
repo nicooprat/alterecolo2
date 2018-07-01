@@ -42,7 +42,5 @@ module.exports = {
   modules: [
     '@nuxtjs/dotenv',
   ],
-  generate: {
-    fallback: true
-  }
+  mode: 'spa',
 }
