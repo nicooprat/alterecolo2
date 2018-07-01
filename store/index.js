@@ -1,6 +1,5 @@
 import Airtable from 'airtable'
 import slugify from 'slugify'
-const bugsnag = process.browser && require('~/plugins/errors')
 
 export const state = () => ({
   checkeds: [],
@@ -58,7 +57,6 @@ export const actions = {
         fetchNextPage()
       }, (err) => {
         if(err) {
-          bugsnag.notify(new Error(err))
           rej(err)
         } else {
           commit('setDatas', {items, categories})

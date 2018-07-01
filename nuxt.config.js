@@ -33,7 +33,6 @@ module.exports = {
   plugins: [
     { src: '~plugins/nuxt-client-init.js', ssr: false },
     { src: '~plugins/persisted-state.js', ssr: false },
-    { src: '~plugins/errors.js', ssr: false },
     { src: '~plugins/fuse.js', ssr: false },
     { src: '~plugins/analytics.js', ssr: false },
     { src: '~plugins/router-sync.js' },
