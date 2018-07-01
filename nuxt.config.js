@@ -42,4 +42,7 @@ module.exports = {
   modules: [
     '@nuxtjs/dotenv',
   ],
+  generate: {
+    fallback: true
+  }
 }
